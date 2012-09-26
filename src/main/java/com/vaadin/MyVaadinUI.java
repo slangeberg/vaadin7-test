@@ -12,13 +12,15 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 public class MyVaadinUI extends UI
 {
+    private static Integer count = 0;
 
     @Override
     protected void init(WrappedRequest request) {
-        Button button = new Button("Click Me");
+
+        Button button = new Button("Click Me 2");
         button.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-               event.getButton().getUI().addComponent(new Label("Thank you for clicking"));
+           event.getButton().getUI().addComponent(new Label("Thank you for clicking #" + (++count) ));
             }
         });
         addComponent(button);
