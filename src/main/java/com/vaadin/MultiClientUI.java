@@ -11,26 +11,50 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * The Application's "main" class
- */
-@PreserveOnRefresh
 @SuppressWarnings("serial")
 public class MultiClientUI extends UI {
 
     private static Set<Object> clients = new HashSet<Object>();
+    private static Set<MultiClientUI> clientUpdateListeners = new HashSet<MultiClientUI>();
+
+    String user;
 
     @Override
     protected void init(final WrappedRequest request) {
+
         String cookie = request.getHeader("Cookie");
 
+
 //==> Assuming only one cookie, now!! (JSESSIONID)
-        final String user = cookie.split("=")[1];
+        user = cookie.split("=")[1];
+
+        final String _user = user;
+
         clients.add(new HashMap<String, String>(){{
-            put("user", user);
+            put("user", _user);
         }});
+
+
+        clientUpdateListeners.add(this);
+
+        System.out.println("clientUpdateListeners#: " + clientUpdateListeners.size() );
+
+        // Notify listeners
+        for( MultiClientUI clientUI : clientUpdateListeners ){
+            clientUI.clientsUpdated();
+        }
+    }
+
+    public void clientsUpdated(){
+        render();
+    }
+
+    protected void render() {
+
+        removeAllComponents();
+
         addComponent(
-           new Label("Welcome: " + user ));
+                new Label("Welcome: " + user ));
         addComponent(new Label("-----------------------------------"));
         addComponent(new Label("Currently " + clients.size() + " users online"));
     }
