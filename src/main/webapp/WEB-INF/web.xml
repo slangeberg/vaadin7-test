@@ -9,6 +9,10 @@
         <param-value>false</param-value>
     </context-param>
 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <servlet>
         <servlet-name>clickApp</servlet-name>
         <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
@@ -17,11 +21,6 @@
             <param-value>com.vaadin.ClickUI</param-value>
             <description>Vaadin UI to display</description>
         </init-param>
-         <!--<init-param>-->
-            <!--<description>Application widgetset</description>-->
-            <!--<param-name>widgetset</param-name>-->
-            <!--<param-value>com.vaadin.AppWidgetSet</param-value>-->
-        <!--</init-param>-->
     </servlet>
 
     <servlet>
@@ -33,9 +32,22 @@
         </init-param>
     </servlet>
 
+    <servlet>
+        <servlet-name>multiPageUI</servlet-name>
+        <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+        <init-param>
+            <param-name>UI</param-name>
+            <param-value>com.vaadin.MultiPageUI</param-value>
+        </init-param>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>multiClientUI</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>multiPageUI</servlet-name>
+        <url-pattern>/pages/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>clickApp</servlet-name>
