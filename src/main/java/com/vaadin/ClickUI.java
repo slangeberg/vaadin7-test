@@ -12,7 +12,7 @@ import com.vaadin.ui.UI;
  */
 @PreserveOnRefresh
 @SuppressWarnings("serial")
-public class MyVaadinUI extends UI {
+public class ClickUI extends UI {
 
     private static Integer staticCount = 0;
 
@@ -24,7 +24,7 @@ public class MyVaadinUI extends UI {
         Button button = new Button("(preserve) LocalClick count");
         button.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-                MyVaadinUI target = (MyVaadinUI)event.getButton().getUI();
+                ClickUI target = (ClickUI)UI.getCurrent();
                 target.addUpdateLabel();
             }
         });
